@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+        <style>
+            body {
+                height: 100vh;
+                    width: 100%;
+                background: #0f2027; /* fallback for old browsers */
+                background: linear-gradient(to right,#2c5364, #203a43, #0f2027);
+                display: flex;
+                justify-content: center;
+                
+                height: 100vh;
+                color: #fff;
+                }
+                
+        </style>
+		<meta charset="utf-8">
+		<title>Visualization</title>
+		<script type="text/javascript" src="d3.v3.js"></script>
+		<script type="text/javascript" src="d3.v3.min.js"></script>
+		<script src="topojson.v1.min.js"></script>
+	</head>
+    <body>
+        
+        <div>
+            Spécialité : <input list="listSpecs" id="choixSpec" name="choixSpec">
+            <datalist 
+                id="listSpecs">
+            </datalist>
+            
+            Enseignant : <input list="listProfs" id="choixProf" name="choixProf">
+            <datalist 
+                id="listProfs">
+            </datalist>
+
+            Salle : <input list="listSalle" id="choixSall" name="choixSall">
+            <datalist 
+                id="listSalle">
+            </datalist>
+
+            <button type="button" onclick="sallesAColorier()">Trouver</button>
+        </div>
+
+        <script type="text/javascript">
+            // variables
+			let specialites = [];
+			let profs = [];
+			let nivs = [1,2,3];
+			let salles = [];
+            let edt = [];
+			
+            d3.csv("edt_data.csv", function(data) {
+                // recuperation des données
+                edt = data;
+
+				for (var i = 0; i < data.length; i++) {
+					specialites.push(data[i].Spécialité);
+					salles.push(data[i].Salle);
+					profs.push(data[i].Prof);
+				}
+
+                // still don't knwo what this is
+                var spec = document.getElementById("listSpecs");
+				for(i in specialites) {spec.appendChild(new Option(specialites[i]));}
+				var pro = document.getElementById("listProfs");
+				for(i in profs) {pro.appendChild(new Option(profs[i]));}
+				var sal = document.getElementById("listSalle");
+				for(i in salles) {sal.appendChild(new Option(salles[i]));}
+        
+			});
+
+            //Width and height
+			var w = 800;
+			var h = 600;
+			var i = 0;
+			//Define map projection
+			var proj = d3.geo.mercator()
+								   .translate([0,0])
+								   .scale([1]);
+
+			//Define path generator
+			var path = d3.geo.path()
+							 .projection(proj);
+			
+			var svg = d3.select("body")
+						.append("svg")
+						.style("border","2px solid")
+						.attr("width", w)
+						.attr("height", h);
+						
+			var s = svg;
+				
+			svg = svg.append("g");
+						
+			var div = d3.select("body").append("div")	
+				.attr("class", "tooltip")				
+				.style("opacity", 0);
+           
+
+            d3.json("map.geojson", function(json) {
+            dat = json.features;
+            
+            var b = path.bounds(json);
+            console.log(b);
+            s = .99 / Math.max( (b[1][0] - b[0][0]) / w , (b[1][1] - b[0][1]) / h ); 
+            t = [ (w - s * (b[1][0] +b[0][0])) / 2 , (h - s * (b[1][1]+b[0][1])) / 2 ];
+            proj.translate(t).scale(s);
+
+            map =svg.selectAll("path")
+				   .data(json.features)
+				   .enter()
+				   .append("path")
+				   //.filter(function(d) {return d.properties.Etage=='10' || d.properties.Etage=='0'; })
+				   .attr("d", path)
+				   .attr("stroke","black")
+				   .attr("fill","white")
+				   .attr("class",function(d){if(t==1)return "cl1"; if(d.properties.Name=="Nouveaux blocs") t=1; return "cl0";})
+				   .attr("id",function(d){if(startsWithNumber(d.properties.Name))return "XX"+d.properties.Name;return d.properties.Name;})
+				   .on({
+                        "mouseover": function(d) {			
+                            console.log(parseInt("-25"));
+                            const tooltip = document.getElementById("tooltip-text");
+                            tooltip.style.display = 'block';
+                        },
+                        "mouseleave": function(d) {			
+                            console.log(5+parseInt("-25"));
+                            const tooltip = document.getElementById("tooltip-text");
+                            tooltip.style.display = 'none';
+                        },
+                        "click":  function(d) { 
+                            affichage(this,d.properties.Name,document.getElementById('choixSpec').value,document.getElementById('choixProf').value);
+                        }
+                    });
+					
+            });
+        
+            
+            
+            
+
+
+
+
+        </script>
+
+    </body>
+</html>
