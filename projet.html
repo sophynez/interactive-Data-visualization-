@@ -1,76 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-        <style>
+		<meta charset="utf-8">
+		<title>projet vd T^T</title>
+		<script type="text/javascript" src="d3.v3.js"></script>
+		<script type="text/javascript" src="d3.v3.min.js"></script>
+		<script src="topojson.v1.min.js"></script>
+		<style>
             body {
-                height: 100vh;
-                    width: 100%;
-                background: #0f2027; /* fallback for old browsers */
+                background: #0f2027; 
                 background: linear-gradient(to right,#2c5364, #203a43, #0f2027);
-                display: flex;
-                justify-content: center;
-                
-                height: 100vh;
                 color: #fff;
                 }
                 
         </style>
-		<meta charset="utf-8">
-		<title>Visualization</title>
-		<script type="text/javascript" src="d3.v3.js"></script>
-		<script type="text/javascript" src="d3.v3.min.js"></script>
-		<script src="topojson.v1.min.js"></script>
 	</head>
-    <body>
-        
-        <div>
-            Spécialité : <input list="listSpecs" id="choixSpec" name="choixSpec">
-            <datalist 
-                id="listSpecs">
-            </datalist>
-            
-            Enseignant : <input list="listProfs" id="choixProf" name="choixProf">
-            <datalist 
-                id="listProfs">
-            </datalist>
-
-            Salle : <input list="listSalle" id="choixSall" name="choixSall">
-            <datalist 
-                id="listSalle">
-            </datalist>
-
-            <button type="button" onclick="sallesAColorier()">Trouver</button>
-        </div>
-
-        <script type="text/javascript">
-            // variables
-			let specialites = [];
+	<body>
+	
+		
+		<div>
+		Spécialité : <input list="specialiteliste" id="choixspecialite" name="choixspecialite">
+		<datalist id="specialiteliste">
+		</datalist>
+		Enseignant : <input list="profsliste" id="choixprof" name="choixprof">
+		<datalist id="profsliste">
+		</datalist>
+		Salle : <input list="listSalle" id="choixsalle" name="choixsalle">
+		<datalist id="listSalle">
+		</datalist>
+		<button type="button" onclick="coloriage()">Chercher!</button>
+		</div>
+		<br>
+		<br>
+		<br>
+		<script type="text/javascript">
+			//Filtrer
+			let specs = [];
 			let profs = [];
-			let nivs = [1,2,3];
-			let salles = [];
-            let edt = [];
-			
-            d3.csv("edt_data.csv", function(data) {
-                // recuperation des données
-                edt = data;
-
+			let annee = [1,2,3];
+			let salle = [];
+			let emplois_data = [];
+			d3.csv("emplois.csv", function(data) {
 				for (var i = 0; i < data.length; i++) {
-					specialites.push(data[i].Spécialité);
-					salles.push(data[i].Salle);
+					specs.push(data[i].Specialité);
+					salle.push(data[i].Salle);
 					profs.push(data[i].Prof);
 				}
-
-                // still don't knwo what this is
-                var spec = document.getElementById("listSpecs");
-				for(i in specialites) {spec.appendChild(new Option(specialites[i]));}
-				var pro = document.getElementById("listProfs");
+				specs = specs.filter((x, i, a) => a.indexOf(x) === i).sort();
+				profs = profs.filter((x, i, a) => a.indexOf(x) === i).sort();
+				salle = salle.filter((x, i, a) => a.indexOf(x) === i).sort();
+				console.log(specs);
+				console.log(profs);
+				console.log(salle);
+				
+				var spec = document.getElementById("specialiteliste");
+				for(i in specs) {spec.appendChild(new Option(specs[i]));}
+				var pro = document.getElementById("profsliste");
 				for(i in profs) {pro.appendChild(new Option(profs[i]));}
 				var sal = document.getElementById("listSalle");
-				for(i in salles) {sal.appendChild(new Option(salles[i]));}
-        
+				for(i in salle) {sal.appendChild(new Option(salle[i]));}
+				
+				emplois_data = data;
 			});
-
-            //Width and height
+		
+			//Width and height
 			var w = 800;
 			var h = 600;
 			var i = 0;
@@ -82,32 +75,38 @@
 			//Define path generator
 			var path = d3.geo.path()
 							 .projection(proj);
+							 
 			
 			var svg = d3.select("body")
 						.append("svg")
 						.style("border","2px solid")
 						.attr("width", w)
-						.attr("height", h);
-						
+						.attr("height", h)
+						;
+			
 			var s = svg;
+			
+			
 				
-			svg = svg.append("g");
-						
+			svg = svg.append("g")
+						;
+			
+			
 			var div = d3.select("body").append("div")	
 				.attr("class", "tooltip")				
 				.style("opacity", 0);
-           
-
-            d3.json("map.geojson", function(json) {
-            dat = json.features;
-            
-            var b = path.bounds(json);
-            console.log(b);
-            s = .99 / Math.max( (b[1][0] - b[0][0]) / w , (b[1][1] - b[0][1]) / h ); 
-            t = [ (w - s * (b[1][0] +b[0][0])) / 2 , (h - s * (b[1][1]+b[0][1])) / 2 ];
-            proj.translate(t).scale(s);
-
-            map =svg.selectAll("path")
+				
+			var dat = []
+			d3.json("map.geojson", function(json) {
+				dat = json.features;
+				
+				var b = path.bounds(json);
+				console.log(b);
+				s = .99 / Math.max( (b[1][0] - b[0][0]) / w , (b[1][1] - b[0][1]) / h ); 
+				t = [ (w - s * (b[1][0] +b[0][0])) / 2 , (h - s * (b[1][1]+b[0][1])) / 2 ];
+				proj.translate(t).scale(s);
+				
+				map =svg.selectAll("path")
 				   .data(json.features)
 				   .enter()
 				   .append("path")
@@ -116,33 +115,73 @@
 				   .attr("stroke","black")
 				   .attr("fill","white")
 				   .attr("class",function(d){if(t==1)return "cl1"; if(d.properties.Name=="Nouveaux blocs") t=1; return "cl0";})
-				   .attr("id",function(d){if(startsWithNumber(d.properties.Name))return "XX"+d.properties.Name;return d.properties.Name;})
+				   .attr("id",function(d){if(startsWNum(d.properties.Name))return "XX"+d.properties.Name;return d.properties.Name;})
 				   .on({
-                        "mouseover": function(d) {			
-                            console.log(parseInt("-25"));
-                            const tooltip = document.getElementById("tooltip-text");
-                            tooltip.style.display = 'block';
-                        },
-                        "mouseleave": function(d) {			
-                            console.log(5+parseInt("-25"));
-                            const tooltip = document.getElementById("tooltip-text");
-                            tooltip.style.display = 'none';
-                        },
-                        "click":  function(d) { 
-                            affichage(this,d.properties.Name,document.getElementById('choixSpec').value,document.getElementById('choixProf').value);
-                        }
-                    });
+					"click":  function(d) { writeInfo(this,d.properties.Name,document.getElementById('choixspecialite').value,document.getElementById('choixprof').value);}});
 					
-            });
-        
-            
-            
-            
-
-
-
-
-        </script>
-
-    </body>
+			});
+			
+			
+			
+         	function updateData(etage){
+			
+				//svg.selectAll("path.cl1").remove();
+				svg.selectAll("path").remove().html(null);
+				var t = 0;
+				d3.json("map.geojson", function(json) {
+				console.log(json.features);
+				map =svg.selectAll("path")
+				   .data(json.features)
+				   .enter()
+				   .append("path")				   
+				   .attr("d", path)
+				   .attr("stroke","black")
+				   .attr("fill","white")
+				   .attr("class","cl1")
+				   .attr("id",function(d){if(startsWNum(d.properties.Name))return "XX"+d.properties.Name;return d.properties.Name;})
+				   .on({
+					"mouseover": function(d) { 	console.log("mouse over");},
+					"click":  function(d) { writeInfo(this,d.properties.Name,document.getElementById('choixspecialite').value,document.getElementById('choixprof').value);}});
+				
+				});
+			}
+			
+			function creneau(obj){
+				return "<p>"+obj.Jour+"-"+obj.Heure+"-"+obj.Specialité+obj.année+"-"+obj.Module+"<\p>";
+			}
+			function coloriage(){
+				salle=document.getElementById('choixsalle').value;
+				speci=document.getElementById('choixspecialite').value;
+				ens=document.getElementById('choixprof').value;
+				svg.selectAll("path.cl1").attr("fill","white");
+				for (var i = 0; i < emplois_data.length; i++) {
+					if((speci=="" || emplois_data[i].Specialité==speci) && 
+						(salle=="" || emplois_data[i].Salle==salle) && 
+						(ens=="" || emplois_data[i].Prof==ens)){
+								s = emplois_data[i].Salle;
+								if(startsWNum(s))
+									s = "XX"+s;
+								svg.select("path#"+s)
+								.attr("fill","blue");
+								svg.select("path#TP.C6")
+								.attr("fill","yellow");
+							  }
+				}
+			}
+			function writeInfo(t,salle,speci,ens){
+				div.transition().duration(200).style("opacity", .9);
+				res = "Salle : " + salle;
+				for (var i = 0; i < emplois_data.length; i++) {
+					if((speci=="" || emplois_data[i].Specialité==speci) && emplois_data[i].Salle==salle && (ens=="" || emplois_data[i].Prof==ens))
+						res = res + creneau(emplois_data[i]);
+				}
+				div.html(res)
+				.style("left", (d3.mouse(t)[0]) + "px").style("top", (d3.event.pageY - 28) + "px");
+			}
+			function startsWNum(str) {
+				return /^\d/.test(str);
+			}
+			
+		</script>
+	</body>
 </html>

@@ -1,0 +1,54 @@
+Specialité,année,Jour,Heure,Seance,Module,Salle,Prof,Groupe
+MIV,1,Dimanche,11h20 a 12h50,cours,Résolution de problémes,D6,LARABI,0
+MIV,1,Dimanche,13h00 a 14h30,cours,TAI,D6,SETITRA,0
+MIV,1,Dimanche,14h40 a 16h10,TP,Résolution de problémes,TP129,SEBAI,G1
+MIV,1,Dimanche,14h40 a 16h10,TD,TAIL,D5,SETITRA,G2
+MIV,1,Dimanche,8h00 a 9h30,TD,Anglais,LABO LANG,BOUDEFASSA,G1
+MIV,1,Dimanche,8h00 a 9h30,TP,ABDD,TP.C3A,KESSI,G2
+MIV,1,Dimanche,9h40 a 11h10,TD,Anglais,LABO LANG,BOUDEFASSA,G2
+MIV,1,Lundi,11h20 a 12h50,TD,TAI,405,SETITRA,G1
+MIV,1,Lundi,11h20 a 12h50,TD,Syst,166,BENCHAIBA,G2
+MIV,1,Lundi,13h00 a 14h30,TP,TAI,TP.C8,SETITRA,G1
+MIV,1,Lundi,13h00 a 14h30,TP,Syst,TP127,BENCHAIBA,G2
+MIV,1,Lundi,8h00 a 9h30,TP,Syst,TP.C4,BENCHAIBA,G1
+MIV,1,Lundi,8h00 a 9h30,TP,TAI,TP.C5,SETITRA,G2
+MIV,1,Lundi,9h40 a 11h10,cours,ABDD,D6,DJIROUNE,0
+MIV,1,Mardi,11h20 a 12h50,TD,Syst,249,BENCHAIBA,G1
+MIV,1,Mardi,11h20 a 12h50,TP,Résolution de problémes,TP122,SEBAI,G2
+MIV,1,Mardi,13h00 a 14h30,TP,ABDD,TP.C5,KESSI,G1
+MIV,1,Mardi,13h00 a 14h30,TP,Algo,TP.C4,MESSAOUDI,G2
+MIV,1,Mardi,14h40 a 16h10,TP,Algo,TP.C4,MESSAOUDI,G1
+MIV,1,Mardi,8h00 a 9h30,cours,Syst,E6,BENCHAIBA,0
+MIV,1,Mardi,9h40 a 11h10,cours,Multimédia,E6,LARABI,0
+MIV,1,Mercredi,11h20 a 12h50,TP,Multimédia,TP.C5,SEBAI,G1
+MIV,1,Mercredi,11h20 a 12h50,TD,Algo,387,MESSAOUDI,G2
+MIV,1,Mercredi,8h00 a 9h30,cours,Algo,R4,DRIAS,0
+MIV,1,Mercredi,9h40 a 11h10,TD,Algo,406,MESSAOUDI,G1
+MIV,1,Mercredi,9h40 a 11h10,TP,Multimédia,TP.C5,SEBAI,G2
+MIV,2,Dimanche,11h20 a 12h50,cours,Systeme d'Exploitation Mobile,117D,OURAHMOUNE,0
+MIV,2,Dimanche,13h00 a 14h30,TP,Visualisation de Données,TP128,no_name,G1
+MIV,2,Dimanche,13h00 a 14h30,TP,Systéme d'Exploitation Mobile,TP.C4,OURAHMOUNE,G2
+MIV,2,Dimanche,14h40 a 16h10,TP,Visualisation de Données,TP130,no_name,G2
+MIV,2,Dimanche,8h00 a 9h30,TD,Systeme d'Exploitation Mobile,162,OURAHMOUNE,G1
+MIV,2,Dimanche,8h00 a 9h30,TD,TH JEU,118,DAHMANI,G2
+MIV,2,Dimanche,9h40 a 11h10,cours,Visualisation de Données,135D,LARABI,0
+MIV,2,Lundi,11h20 a 12h50,TP,Atelier Créatif,TP.C5,LARABI,G1
+MIV,2,Lundi,11h20 a 12h50,TP,Synthése d'Image,TP.C4,Dahmane,G2
+MIV,2,Lundi,13h00 a 14h30,TP,Synthése d'Image,TP132,Dahmane,G1
+MIV,2,Lundi,8h00 a 9h30,cours,PROG RES,SC,EL NAGGER,0
+MIV,2,Lundi,9h40 a 11h10,TP,Connaissances et Raisonnement,TP.C4,KHELLAF,G1
+MIV,2,Lundi,9h40 a 11h10,TP,Atelier Créatif,TP.C5,LARABI,G2
+MIV,2,Mardi,11h20 a 12h50,TP,Systeme d'Exploitation Mobile,TP.C5,OURAHMOUNE,G1
+MIV,2,Mardi,11h20 a 12h50,TP,GP,TP127,BENSALAH,G2
+MIV,2,Mardi,13h00 a 14h30,TP,PROG RES,TP.C6,no_name,G1
+MIV,2,Mardi,14h40 a 16h10,TP,GP,TP.C7,BENSALAH,G1
+MIV,2,Mardi,14h40 a 16h10,TP,PROG RES,TP.C6,no_name,G2
+MIV,2,Mardi,8h00 a 9h30,cours,GP,103D,HACHEMI,0
+MIV,2,Mardi,9h40 a 11h10,cours,Synthése d'Image,103D,Dahmane,0
+MIV,2,Mercredi,11h20 a 12h50,cours,TH JEU,D5,DAHMANI,0
+MIV,2,Mercredi,13h00 a 14h30,TP,TH JEU,TP.C5,no_name,G1
+MIV,2,Mercredi,13h00 a 14h30,TP,Connaissances et Raisonnement,TP.C6,belhadi hiba,G2
+MIV,2,Mercredi,14h40 a 16h10,TP,TH JEU,TP.C3A,no_name,G2
+MIV,2,Mercredi,8h00 a 9h30,TD,TH JEU,402,DAHMANI,G1
+MIV,2,Mercredi,8h00 a 9h30,TD,Systéme d'Exploitation Mobile,338,OURAHMOUNE,G2
+MIV,2,Mercredi,9h40 a 11h10,cours,Connaissances et Raisonnement,R4,KHELLAF,0
